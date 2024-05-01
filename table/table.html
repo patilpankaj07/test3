@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form">
+      <label for="input1">enter 1st value</label>
+      <input type="text" id="input1" value="3#3#3" />
+      <br /><br />
+      <label for="input2">enter 2nd value</label>
+      <input type="text" id="input2" value="3#3#4" />
+      <br /><br />
+      <button>submit</button>
+    </form>
+
+    <table border="1px" id="t1"></table>
+    <table border="1px" id="t2"></table>
+    <table border="1px" id="t3"></table>
+
+    <script>
+      const form = document.getElementById("form");
+      form.addEventListener("submit", generateTable);
+      function createTable(n) {
+        let r = n[0];
+        let c = n[1];
+        let val = n[2];
+        let table = [];
+        for (let i = 0; i < r; i++) {
+          table.push([]);
+        }
+        for (let i = 0; i < c; i++) {
+          let curr = val;
+          table[0][i] = curr;
+          for (let j = 1; j < r; j++) {
+            table[j][i] = curr * (j + 1);
+          }
+          val++;
+        }
+        return table;
+      }
+      function display(table, id)
+      {
+        const opt=document.getElementById(id);
+        let display="";
+        for(let i=0; i<table.length; i++)
+        {
+          display+="<tr>";
+          for(let j=0; j<table[0].length; j++)
+          {
+            display+="<td>";
+              display+=table[i][j];
+          }
+        }
+        opt.innerHTML=display;
+      }
+      function mul(table1, table2)
+      {
+        let table=[];
+        for(let i=0; i<table1.length; i++)
+        {
+          table.push([]);
+        }
+        for(let i=0; i<table1.length; i++)
+        {
+          for(let j=0; j<table1[0].length; j++)
+          {
+            if(table1[i][j]==table2[i][j])
+            table[i][j]=table1[i][j];
+          else
+          table[i][j]=table2[i][j]*table1[i][j];
+          }
+        }
+        return table;
+      }
+      function generateTable(event) {
+        event.preventDefault();
+        let n1 = document.getElementById("input1").value;
+        let n2 = document.getElementById("input2").value;
+        n1 = n1.split("#");
+        n2 = n2.split("#");
+        let table1 = createTable(n1);
+        let table2 = createTable(n2);
+        let table3 = mul(table1,table2);
+        console.log(table1);
+        display(table1,"t1");
+        display(table2,"t2");
+        display(table3,"t3");
+      }
+    </script>
+  </body>
+</html>

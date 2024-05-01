@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        table{
+            width: 100%;
+        }
+        
+        td{
+            border-bottom: 2px solid black;
+            text-align: center;
+            padding: 10px;
+        }
+
+        button{
+            border: 2px solid blue;
+            color: white;
+            font-size: 20px;
+            padding: 12px;
+            border-radius: 4px;
+            background-color: blue;
+            margin: 20px;
+        }
+
+        button:hover{
+            color: blue;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="fetchData()">View All Records</button>
+    <br><br><br>
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+
+        <tbody id="tble">
+
+        </tbody>
+    </table>
+
+    
+
+
+    <script>
+        const fetchData = () => {
+            const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+    
+            usersData.forEach(item => {
+                let tr = document.createElement('tr');
+    
+                let name = document.createElement('td');
+                name.innerHTML = `<h3>${item.name}</h3>`;
+                tr.appendChild(name);
+    
+                let age = document.createElement('td');
+                age.innerHTML = `<h3>${item.age}</h3>`;
+                tr.appendChild(age);
+    
+                let email = document.createElement('td');
+                email.innerHTML = `<h3>${item.email}</h3>`;
+                tr.appendChild(email);
+    
+                let password = document.createElement('td');
+                password.innerHTML = `<h3>${item.password}</h3>`;
+                tr.appendChild(password);
+    
+                document.getElementById('tble').appendChild(tr);
+            });
+        };
+    </script>
+    
+</body>
+</html>
